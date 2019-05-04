@@ -23,35 +23,35 @@
     #define FOR(a,b,c)   for(int a=b;a<c;a++)
     #define REP(i,n)     FOR(i,0,n)
 
-    bool comp(pii i, pii j)
-    {
-        if(i.se==j.se){
-            return (i.fi > j.fi);
-        }
-        else {
-            return (i.se > j.se);
-        }
-    }
 
     int main()
     {
-        int n,count=1,sum=0;
+        int n,sumA=0,sumG=0;
         cin >> n;
         pii p[n];
+        string s[n];
         REP(i,n) {cin >> p[i].fi >> p[i].se;}
-        
-        sort(p,p+n,comp);
-
-        //REP(i,n) {cout << "\n" << p[i].fi << " " << p[i].se;}
-        REP(i,n)
-        {
-            if(count){
-                sum+=p[i].fi;
-                count+=p[i].se-1;
-            }else {break;}
+        sumA+=p[0].fi;
+        if((sumA-sumG)<500){
+            cout << "A";
+        }else{
+            sumA-=p[0].fi;
+            sumG+=p[0].se;
+            cout << "G";
         }
-        cout << sum;
+        FOR(i,1,n)
+        {
+            sumA+=p[i].fi;
+            if((sumA-sumG)>500){
+                s[i]='G';
+                sumA-=p[i].fi;
+                sumG+=p[i].se;
+            }else{ 
+                s[i]='A';
+            }
+        }
+        
+        FOR(i,1,n) {cout << s[i];}
 
     }
-
 
